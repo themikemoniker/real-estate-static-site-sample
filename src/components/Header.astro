@@ -1,8 +1,9 @@
 ---
+const base = import.meta.env.BASE_URL;
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/#listings', label: 'Properties' },
-  { href: '/#contact', label: 'Contact' },
+  { href: base, label: 'Home' },
+  { href: `${base}#listings`, label: 'Properties' },
+  { href: `${base}#contact`, label: 'Contact' },
 ];
 ---
 
@@ -10,7 +11,7 @@ const navLinks = [
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 sm:h-20">
       <!-- Logo -->
-      <a href="/" class="flex items-center space-x-2">
+      <a href={base} class="flex items-center space-x-2">
         <span class="text-xl sm:text-2xl font-display font-bold text-gold-500">
           Luxe<span class="text-white">Estates</span>
         </span>
@@ -26,7 +27,7 @@ const navLinks = [
             {link.label}
           </a>
         ))}
-        <a href="/#contact" class="btn-primary text-sm">
+        <a href={`${base}#contact`} class="btn-primary text-sm">
           Get in Touch
         </a>
       </nav>
@@ -54,7 +55,7 @@ const navLinks = [
             {link.label}
           </a>
         ))}
-        <a href="/#contact" class="btn-primary text-center mt-2">
+        <a href={`${base}#contact`} class="btn-primary text-center mt-2">
           Get in Touch
         </a>
       </div>
