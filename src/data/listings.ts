@@ -155,9 +155,9 @@ export const sampleListings: Listing[] = [
       'Parking Included',
     ],
     images: [
-      'https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=800&q=80',
-      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80',
-      'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80',
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&q=80',
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
+      'https://images.unsplash.com/photo-1484154218962-a197022b25ba?w=800&q=80',
     ],
   },
   {
