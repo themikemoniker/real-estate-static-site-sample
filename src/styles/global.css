@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-dark-900 text-white font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-gold-500 text-dark-900 font-semibold px-6 py-3 rounded-sm
+           hover:bg-gold-400 transition-all duration-300
+           focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2 focus:ring-offset-dark-900;
+  }
+
+  .btn-secondary {
+    @apply border border-gold-500 text-gold-500 font-semibold px-6 py-3 rounded-sm
+           hover:bg-gold-500 hover:text-dark-900 transition-all duration-300
+           focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2 focus:ring-offset-dark-900;
+  }
+
+  .card {
+    @apply bg-dark-800 border border-dark-700 rounded-sm overflow-hidden
+           transition-all duration-300 hover:border-gold-500/50;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-gold-400 to-gold-600 bg-clip-text text-transparent;
+  }
+
+  .gold-divider {
+    @apply h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent;
+  }
+}

@@ -1,0 +1,82 @@
+---
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/#listings', label: 'Properties' },
+  { href: '/#contact', label: 'Contact' },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-700">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 sm:h-20">
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-2">
+        <span class="text-xl sm:text-2xl font-display font-bold text-gold-500">
+          Luxe<span class="text-white">Estates</span>
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-8">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="text-sm font-medium text-gray-300 hover:text-gold-500 transition-colors duration-200"
+          >
+            {link.label}
+          </a>
+        ))}
+        <a href="/#contact" class="btn-primary text-sm">
+          Get in Touch
+        </a>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden p-2 text-gray-300 hover:text-gold-500 transition-colors"
+        aria-label="Toggle menu"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav id="mobile-menu" class="hidden md:hidden pb-4">
+      <div class="flex flex-col space-y-3">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="text-base font-medium text-gray-300 hover:text-gold-500 transition-colors duration-200 py-2"
+          >
+            {link.label}
+          </a>
+        ))}
+        <a href="/#contact" class="btn-primary text-center mt-2">
+          Get in Touch
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Spacer for fixed header -->
+<div class="h-16 sm:h-20"></div>
+
+<script>
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Close menu when clicking a link
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+    });
+  });
+</script>

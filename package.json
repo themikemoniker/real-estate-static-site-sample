@@ -1,0 +1,23 @@
+{
+  "name": "real-estate-static-site-sample",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Luxury real estate listings site",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:60119/git/themikemoniker/real-estate-static-site-sample"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^5.16.11",
+    "tailwindcss": "^3.4.19"
+  }
+}
