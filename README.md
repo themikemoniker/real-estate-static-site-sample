@@ -94,6 +94,67 @@ const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/p
 
 That's it! Your listings will now sync from Google Sheets.
 
+---
+
+## For Agents: How to Add a New Listing
+
+Once the Google Sheet is set up and connected, follow these steps to add a new property:
+
+### Step 1: Open Your Google Sheet
+Open the Google Sheet that's connected to your website.
+
+### Step 2: Add a New Row
+Go to the bottom of your existing listings and add a new row with the following information:
+
+| Column | What to Enter | Example |
+|--------|---------------|---------|
+| **id** | Next number in sequence | `7` |
+| **title** | Catchy property title | `Stunning Beachfront Villa` |
+| **description** | Full property description | `Beautiful 4-bed home with ocean views...` |
+| **price** | Price (numbers only, no $ or commas) | `1500000` for sale, `5000` for rent |
+| **status** | Current status | `For Sale`, `For Rent`, `Sold`, or `Pending` |
+| **address** | Street address | `456 Ocean Blvd, Unit 12` |
+| **city** | City | `Miami Beach` |
+| **state** | State abbreviation | `FL` |
+| **zipCode** | ZIP code | `33139` |
+| **beds** | Number of bedrooms | `4` |
+| **baths** | Number of bathrooms | `3.5` |
+| **sqft** | Square footage | `2800` |
+| **lotSize** | Lot size (optional) | `0.25 acres` |
+| **yearBuilt** | Year built (optional) | `2021` |
+| **propertyType** | Type of property | `House`, `Condo`, `Townhouse`, `Land`, or `Commercial` |
+| **features** | Features separated by commas | `Pool,Ocean View,Smart Home,2-Car Garage` |
+| **images** | Image URLs separated by commas | `https://...image1.jpg,https://...image2.jpg` |
+
+### Step 3: Add Property Images
+
+**Option A: Use Google Drive (Easiest)**
+1. Upload your photos to Google Drive
+2. Right-click the image → **Share** → **Anyone with the link**
+3. Copy the link (looks like: `https://drive.google.com/file/d/ABC123/view`)
+4. Change it to: `https://drive.google.com/uc?id=ABC123`
+5. Paste this URL in the **images** column
+
+**Option B: Use Your Phone**
+1. Upload photos to Google Drive from your phone
+2. Follow the same steps above to get shareable links
+
+### Step 4: Wait for Update
+The website updates automatically within **5 minutes** of your changes.
+
+### Tips for Great Listings
+- Use **3-5 high-quality photos** per listing (first photo is the main image)
+- Write descriptions that highlight **unique features**
+- Keep titles **short and catchy** (under 50 characters)
+- Double-check the **price** - no dollar signs or commas!
+
+### Need to Edit or Remove a Listing?
+- **Edit**: Simply change the values in the spreadsheet
+- **Remove**: Delete the entire row or change status to `Sold`
+- **Hide temporarily**: Change status to `Pending`
+
+---
+
 ## Customization
 
 ### WhatsApp Number
