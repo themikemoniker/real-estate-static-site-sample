@@ -1,0 +1,250 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getListings, getListingById } from '../../data/listings';
+import type { Listing } from '../../data/types';
+
+export async function getStaticPaths() {
+  const listings = await getListings();
+  return listings.map((listing) => ({
+    params: { id: listing.id },
+    props: { listing },
+  }));
+}
+
+interface Props {
+  listing: Listing;
+}
+
+const { listing } = Astro.props;
+
+const formatPrice = (price: number, status: string) => {
+  const formatted = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0,
+  }).format(price);
+  return status === 'For Rent' ? `${formatted}/mo` : formatted;
+};
+
+const whatsappMessage = encodeURIComponent(
+  `Hi! I'm interested in the property at ${listing.address}. Can you tell me more?`
+);
+---
+
+<Layout title={`${listing.title} | LuxeEstates`} description={listing.description.slice(0, 160)}>
+  <!-- Back Button -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <a
+      href="/#listings"
+      class="inline-flex items-center text-gray-400 hover:text-gold-500 transition-colors"
+    >
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+      Back to Listings
+    </a>
+  </div>
+
+  <!-- Image Gallery -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <!-- Main Image -->
+      <div class="aspect-[4/3] lg:aspect-[3/2] rounded-sm overflow-hidden">
+        <img
+          src={listing.images[0] || '/placeholder.jpg'}
+          alt={listing.title}
+          class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+          id="main-image"
+        />
+      </div>
+      <!-- Secondary Images -->
+      <div class="grid grid-cols-2 gap-4">
+        {listing.images.slice(1, 5).map((image, index) => (
+          <div class="aspect-[4/3] rounded-sm overflow-hidden">
+            <img
+              src={image}
+              alt={`${listing.title} - Image ${index + 2}`}
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-500 cursor-pointer gallery-thumb"
+              data-src={image}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Property Details -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+      <!-- Main Content -->
+      <div class="lg:col-span-2 space-y-8">
+        <!-- Header -->
+        <div>
+          <div class="flex flex-wrap items-center gap-3 mb-3">
+            <span class={`px-3 py-1 text-xs font-semibold uppercase tracking-wide rounded-sm ${
+              listing.status === 'For Sale'
+                ? 'bg-gold-500 text-dark-900'
+                : listing.status === 'For Rent'
+                ? 'bg-blue-500 text-white'
+                : 'bg-red-500 text-white'
+            }`}>
+              {listing.status}
+            </span>
+            <span class="text-sm text-gray-400">{listing.propertyType}</span>
+          </div>
+          <h1 class="text-3xl sm:text-4xl font-display font-bold text-white mb-3">
+            {listing.title}
+          </h1>
+          <p class="text-gray-400 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            {listing.address}, {listing.city}, {listing.state} {listing.zipCode}
+          </p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 bg-dark-800 rounded-sm border border-dark-700">
+          <div class="text-center">
+            <div class="text-2xl font-display font-bold text-gold-500">{listing.beds}</div>
+            <div class="text-sm text-gray-400">Bedrooms</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-display font-bold text-gold-500">{listing.baths}</div>
+            <div class="text-sm text-gray-400">Bathrooms</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-display font-bold text-gold-500">{listing.sqft?.toLocaleString()}</div>
+            <div class="text-sm text-gray-400">Sq Ft</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-display font-bold text-gold-500">{listing.yearBuilt || 'N/A'}</div>
+            <div class="text-sm text-gray-400">Year Built</div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div>
+          <h2 class="text-xl font-display font-semibold text-white mb-4">About This Property</h2>
+          <p class="text-gray-300 leading-relaxed whitespace-pre-line">
+            {listing.description}
+          </p>
+        </div>
+
+        <!-- Additional Details -->
+        {(listing.lotSize || listing.yearBuilt) && (
+          <div>
+            <h2 class="text-xl font-display font-semibold text-white mb-4">Property Details</h2>
+            <div class="grid grid-cols-2 gap-4">
+              {listing.lotSize && (
+                <div class="flex justify-between py-3 border-b border-dark-700">
+                  <span class="text-gray-400">Lot Size</span>
+                  <span class="text-white">{listing.lotSize}</span>
+                </div>
+              )}
+              {listing.yearBuilt && (
+                <div class="flex justify-between py-3 border-b border-dark-700">
+                  <span class="text-gray-400">Year Built</span>
+                  <span class="text-white">{listing.yearBuilt}</span>
+                </div>
+              )}
+              <div class="flex justify-between py-3 border-b border-dark-700">
+                <span class="text-gray-400">Property Type</span>
+                <span class="text-white">{listing.propertyType}</span>
+              </div>
+              <div class="flex justify-between py-3 border-b border-dark-700">
+                <span class="text-gray-400">Status</span>
+                <span class="text-white">{listing.status}</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <!-- Features -->
+        {listing.features && listing.features.length > 0 && (
+          <div>
+            <h2 class="text-xl font-display font-semibold text-white mb-4">Features & Amenities</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {listing.features.map((feature) => (
+                <div class="flex items-center text-gray-300">
+                  <svg class="w-5 h-5 mr-2 text-gold-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span class="text-sm">{feature}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <!-- Sidebar -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-24 space-y-6">
+          <!-- Price Card -->
+          <div class="bg-dark-800 rounded-sm border border-dark-700 p-6">
+            <div class="text-3xl sm:text-4xl font-display font-bold text-gold-500 mb-2">
+              {formatPrice(listing.price, listing.status)}
+            </div>
+            <p class="text-sm text-gray-400 mb-6">
+              {listing.status === 'For Rent' ? 'Monthly rent' : 'Asking price'}
+            </p>
+
+            <a
+              href={`https://wa.me/525654121695?text=${whatsappMessage}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-primary w-full text-center flex items-center justify-center gap-2 mb-3"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              </svg>
+              Contact via WhatsApp
+            </a>
+
+            <a
+              href={`mailto:contact@luxeestates.com?subject=Inquiry: ${listing.title}&body=I'm interested in the property at ${listing.address}.`}
+              class="btn-secondary w-full text-center"
+            >
+              Send Email
+            </a>
+          </div>
+
+          <!-- Agent Card -->
+          <div class="bg-dark-800 rounded-sm border border-dark-700 p-6 text-center">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-gold-500 to-gold-600 flex items-center justify-center">
+              <svg class="w-10 h-10 text-dark-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-1">Your Agent</h3>
+            <p class="text-sm text-gray-400 mb-4">LuxeEstates</p>
+            <p class="text-sm text-gray-400">
+              Ready to help you find your dream property.
+              Contact us anytime!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Simple image gallery interaction
+  const mainImage = document.getElementById('main-image') as HTMLImageElement;
+  const thumbs = document.querySelectorAll('.gallery-thumb');
+
+  thumbs.forEach((thumb) => {
+    thumb.addEventListener('click', () => {
+      const src = (thumb as HTMLImageElement).dataset.src;
+      if (src && mainImage) {
+        const currentSrc = mainImage.src;
+        mainImage.src = src;
+        (thumb as HTMLImageElement).src = currentSrc;
+        (thumb as HTMLImageElement).dataset.src = currentSrc;
+      }
+    });
+  });
+</script>

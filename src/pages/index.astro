@@ -1,0 +1,167 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ListingCard from '../components/ListingCard.astro';
+import { getListings } from '../data/listings';
+
+const listings = await getListings();
+const forSale = listings.filter((l) => l.status === 'For Sale');
+const forRent = listings.filter((l) => l.status === 'For Rent');
+---
+
+<Layout title="LuxeEstates - Luxury Real Estate">
+  <!-- Hero Section -->
+  <section class="relative min-h-[70vh] sm:min-h-[80vh] flex items-center justify-center overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <img
+        src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80"
+        alt="Luxury home"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-dark-900/70 via-dark-900/50 to-dark-900"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-6 leading-tight">
+        Discover <span class="text-gradient">Extraordinary</span> Properties
+      </h1>
+      <p class="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+        Your journey to exceptional living begins here. Explore our curated collection
+        of luxury homes and premium real estate.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#listings" class="btn-primary w-full sm:w-auto">
+          View Properties
+        </a>
+        <a href="https://wa.me/525654121695" class="btn-secondary w-full sm:w-auto">
+          Contact Agent
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-12 sm:py-16 border-y border-dark-700 bg-dark-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-3xl sm:text-4xl font-display font-bold text-gold-500">
+            {listings.length}+
+          </div>
+          <div class="text-sm text-gray-400 mt-1">Active Listings</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-4xl font-display font-bold text-gold-500">$2B+</div>
+          <div class="text-sm text-gray-400 mt-1">Properties Sold</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-4xl font-display font-bold text-gold-500">15+</div>
+          <div class="text-sm text-gray-400 mt-1">Years Experience</div>
+        </div>
+        <div>
+          <div class="text-3xl sm:text-4xl font-display font-bold text-gold-500">98%</div>
+          <div class="text-sm text-gray-400 mt-1">Client Satisfaction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Listings Section -->
+  <section id="listings" class="py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center mb-12 sm:mb-16">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
+          Featured <span class="text-gradient">Properties</span>
+        </h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Handpicked luxury homes and exceptional real estate opportunities
+          waiting for their perfect match.
+        </p>
+      </div>
+
+      <!-- For Sale -->
+      {forSale.length > 0 && (
+        <div class="mb-16">
+          <div class="flex items-center justify-between mb-8">
+            <h3 class="text-xl sm:text-2xl font-display font-semibold text-white">
+              For Sale
+            </h3>
+            <div class="gold-divider flex-1 mx-4"></div>
+            <span class="text-sm text-gold-500">{forSale.length} Properties</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {forSale.map((listing) => (
+              <ListingCard listing={listing} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- For Rent -->
+      {forRent.length > 0 && (
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <h3 class="text-xl sm:text-2xl font-display font-semibold text-white">
+              For Rent
+            </h3>
+            <div class="gold-divider flex-1 mx-4"></div>
+            <span class="text-sm text-gold-500">{forRent.length} Properties</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {forRent.map((listing) => (
+              <ListingCard listing={listing} />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 sm:py-24 bg-dark-800/50 border-y border-dark-700">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-display font-bold mb-6">
+        Ready to Find Your <span class="text-gradient">Dream Home</span>?
+      </h2>
+      <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
+        Let us help you navigate the luxury real estate market.
+        Our expertise and personalized approach ensure you find
+        the perfect property.
+      </p>
+      <a
+        href="https://wa.me/525654121695?text=Hi!%20I'm%20interested%20in%20finding%20my%20dream%20home."
+        class="btn-primary inline-flex items-center gap-2"
+      >
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        </svg>
+        Start a Conversation
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(-25%) translateX(-50%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateY(0) translateX(-50%);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+  .animate-bounce {
+    animation: bounce 2s infinite;
+  }
+</style>
