@@ -194,8 +194,8 @@ export const sampleListings: Listing[] = [
 ];
 
 // Google Sheets integration
-// To use: Publish your Google Sheet as CSV, then replace the URL below
-const GOOGLE_SHEET_URL = '';
+// Set GOOGLE_SHEET_URL env var to a published Google Sheet CSV URL
+const GOOGLE_SHEET_URL = import.meta.env.GOOGLE_SHEET_URL || '';
 
 export async function getListings(): Promise<Listing[]> {
   // If no Google Sheet URL is configured, return sample data
@@ -252,7 +252,7 @@ function parseCSVToListings(csvText: string): Listing[] {
         yearBuilt: row.yearbuilt ? parseInt(row.yearbuilt) : undefined,
         propertyType: (row.propertytype as Listing['propertyType']) || 'House',
         features: row.features ? row.features.split(',').map((f) => f.trim()) : [],
-        images: row.images ? row.images.split(',').map((url) => url.trim()) : [],
+        images: row.images ? row.images.split('|').map((url) => url.trim()) : [],
       };
 
       if (listing.title && listing.price > 0) {

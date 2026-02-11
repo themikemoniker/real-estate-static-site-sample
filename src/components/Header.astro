@@ -3,7 +3,7 @@ const base = import.meta.env.BASE_URL;
 const navLinks = [
   { href: base, label: 'Home' },
   { href: `${base}#listings`, label: 'Properties' },
-  { href: `${base}#contact`, label: 'Contact' },
+  { href: `${base}contact`, label: 'Contact' },
 ];
 ---
 
@@ -27,7 +27,7 @@ const navLinks = [
             {link.label}
           </a>
         ))}
-        <a href={`${base}#contact`} class="btn-primary text-sm">
+        <a href={`${base}contact`} class="btn-primary text-sm">
           Get in Touch
         </a>
       </nav>
@@ -55,7 +55,7 @@ const navLinks = [
             {link.label}
           </a>
         ))}
-        <a href={`${base}#contact`} class="btn-primary text-center mt-2">
+        <a href={`${base}contact`} class="btn-primary text-center mt-2">
           Get in Touch
         </a>
       </div>

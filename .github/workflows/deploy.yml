@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '0 */12 * * *'
 
 permissions:
   contents: read
@@ -32,6 +34,9 @@ jobs:
 
       - name: Build Astro site
         run: npm run build
+        env:
+          GOOGLE_SHEET_URL: ${{ secrets.GOOGLE_SHEET_URL }}
+          PUBLIC_FORM_URL: ${{ secrets.PUBLIC_FORM_URL }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -1,0 +1,213 @@
+---
+import Layout from '../layouts/Layout.astro';
+const formUrl = import.meta.env.PUBLIC_FORM_URL || '';
+---
+
+<Layout title="Contact Us | Vallarta Luxury Living" description="Get in touch with our luxury real estate team in Puerto Vallarta.">
+  <!-- Header -->
+  <section class="pt-24 sm:pt-32 pb-12 sm:pb-16 text-center px-4">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-4">
+      Get in <span class="text-gradient">Touch</span>
+    </h1>
+    <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+      Whether you're looking to buy, rent, or sell — we're here to help you
+      navigate the Puerto Vallarta luxury real estate market.
+    </p>
+  </section>
+
+  <!-- Form + Sidebar -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+
+      <!-- Form -->
+      <div class="lg:col-span-2">
+        <form id="contact-form" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Full Name *</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                class="w-full bg-dark-800 border border-dark-700 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-colors outline-none"
+                placeholder="Your name"
+              />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                class="w-full bg-dark-800 border border-dark-700 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-colors outline-none"
+                placeholder="you@example.com"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">Phone</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                class="w-full bg-dark-800 border border-dark-700 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-colors outline-none"
+                placeholder="+1 (555) 000-0000"
+              />
+            </div>
+            <div>
+              <label for="interest" class="block text-sm font-medium text-gray-300 mb-2">I'm interested in *</label>
+              <select
+                id="interest"
+                name="interest"
+                required
+                class="w-full bg-dark-800 border border-dark-700 rounded-sm px-4 py-3 text-white focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-colors outline-none"
+              >
+                <option value="" disabled selected>Select an option</option>
+                <option value="Buying">Buying a property</option>
+                <option value="Renting">Renting a property</option>
+                <option value="Selling">Selling a property</option>
+                <option value="General">General inquiry</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message *</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              required
+              class="w-full bg-dark-800 border border-dark-700 rounded-sm px-4 py-3 text-white placeholder-gray-500 focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-colors outline-none resize-vertical"
+              placeholder="Tell us about what you're looking for..."
+            ></textarea>
+          </div>
+
+          <button type="submit" id="submit-btn" class="btn-primary w-full sm:w-auto">
+            Send Message
+          </button>
+
+          <!-- Success message -->
+          <div id="form-success" class="hidden rounded-sm border border-green-500/30 bg-green-500/10 px-4 py-3 text-green-400 text-sm">
+            Thank you for reaching out! We'll get back to you shortly.
+          </div>
+
+          <!-- Error message -->
+          <div id="form-error" class="hidden rounded-sm border border-red-500/30 bg-red-500/10 px-4 py-3 text-red-400 text-sm">
+            Something went wrong. Please try again or contact us directly via WhatsApp.
+          </div>
+        </form>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-24 space-y-6">
+          <!-- Contact Info Card -->
+          <div class="bg-dark-800 rounded-sm border border-dark-700 p-6 space-y-5">
+            <h3 class="text-lg font-display font-semibold text-white">Contact Information</h3>
+
+            <div class="flex items-start space-x-3">
+              <svg class="w-5 h-5 text-gold-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <div>
+                <p class="text-sm text-gray-400">Email</p>
+                <a href="mailto:contact@vallartaluxuryliving.com" class="text-sm text-white hover:text-gold-500 transition-colors">
+                  contact@vallartaluxuryliving.com
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3">
+              <svg class="w-5 h-5 text-gold-500 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              </svg>
+              <div>
+                <p class="text-sm text-gray-400">WhatsApp</p>
+                <a href="https://wa.me/525654121695" target="_blank" rel="noopener noreferrer" class="text-sm text-white hover:text-gold-500 transition-colors">
+                  +52 565 412 1695
+                </a>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3">
+              <svg class="w-5 h-5 text-gold-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <div>
+                <p class="text-sm text-gray-400">Location</p>
+                <p class="text-sm text-white">Puerto Vallarta, Jalisco, Mexico</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- WhatsApp CTA Card -->
+          <div class="bg-dark-800 rounded-sm border border-dark-700 p-6 text-center">
+            <p class="text-sm text-gray-400 mb-4">
+              Prefer a quick chat? Reach us instantly on WhatsApp.
+            </p>
+            <a
+              href="https://wa.me/525654121695?text=Hi!%20I'm%20interested%20in%20your%20properties."
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-secondary inline-flex items-center gap-2 text-sm"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              </svg>
+              Chat on WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script define:vars={{ formUrl }}>
+  const form = document.getElementById('contact-form');
+  const successDiv = document.getElementById('form-success');
+  const errorDiv = document.getElementById('form-error');
+  const submitBtn = document.getElementById('submit-btn');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    successDiv?.classList.add('hidden');
+    errorDiv?.classList.add('hidden');
+
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      const data = new FormData(form);
+      const params = new URLSearchParams();
+      for (const [key, value] of data.entries()) {
+        params.append(key, value);
+      }
+
+      if (formUrl) {
+        await fetch(formUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: params.toString(),
+        });
+      }
+
+      form.reset();
+      successDiv?.classList.remove('hidden');
+    } catch (err) {
+      errorDiv?.classList.remove('hidden');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  });
+</script>
