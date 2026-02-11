@@ -5,6 +5,7 @@ import type { Listing } from '../../data/types';
 
 export async function getStaticPaths() {
   const listings = await getListings();
+  console.log(`[getStaticPaths] Got ${listings.length} listings, ids: ${listings.map(l => l.id).join(', ')}`);
   return listings.map((listing) => ({
     params: { id: listing.id },
     props: { listing },

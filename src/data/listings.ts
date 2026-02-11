@@ -197,19 +197,30 @@ export const sampleListings: Listing[] = [
 // Set GOOGLE_SHEET_URL env var to a published Google Sheet CSV URL
 const GOOGLE_SHEET_URL = import.meta.env.GOOGLE_SHEET_URL || '';
 
+// Cache fetched listings so all pages share the same data during build
+let cachedListings: Listing[] | null = null;
+
 export async function getListings(): Promise<Listing[]> {
+  if (cachedListings) {
+    return cachedListings;
+  }
+
   // If no Google Sheet URL is configured, return sample data
   if (!GOOGLE_SHEET_URL) {
-    return sampleListings;
+    cachedListings = sampleListings;
+    return cachedListings;
   }
 
   try {
     const response = await fetch(GOOGLE_SHEET_URL);
     const csvText = await response.text();
-    return parseCSVToListings(csvText);
+    const listings = parseCSVToListings(csvText);
+    cachedListings = listings.length > 0 ? listings : sampleListings;
+    return cachedListings;
   } catch (error) {
-    console.error('Error fetching listings from Google Sheets:', error);
-    return sampleListings;
+    console.error('[listings] Error fetching from Google Sheets:', error);
+    cachedListings = sampleListings;
+    return cachedListings;
   }
 }
 
