@@ -14,7 +14,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "GPL-3.0-only",
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",
     "astro": "^5.16.11",

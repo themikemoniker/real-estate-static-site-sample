@@ -103,4 +103,4 @@ For local development without these variables, the site falls back to built-in s
 
 ## License
 
-MIT
+This project is licensed under the [GNU General Public License v3.0](LICENSE).
